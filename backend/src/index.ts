@@ -7,7 +7,7 @@ const app = express();
 
 // Middleware
 app.use(cors({
-  origin: ['https://frontend-9t85rnpc4-ameys-projects-6447a876.vercel.app', 'http://localhost:3000'],
+  origin: ['https://order-app-theta.vercel.app', 'https://frontend-9t85rnpc4-ameys-projects-6447a876.vercel.app', 'http://localhost:3000'],
   credentials: true
 }));
 app.use(express.json());
