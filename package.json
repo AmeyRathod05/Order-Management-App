@@ -1,0 +1,25 @@
+{
+  "name": "order-management-app",
+  "version": "1.0.0",
+  "description": "Food delivery order management feature",
+  "private": true,
+  "workspaces": [
+    "frontend",
+    "backend"
+  ],
+  "scripts": {
+    "dev": "concurrently \"npm run dev:backend\" \"npm run dev:frontend\"",
+    "dev:backend": "npm run dev --workspace=backend",
+    "dev:frontend": "npm run dev --workspace=frontend",
+    "test": "npm run test --workspaces",
+    "build": "npm run build --workspaces",
+    "install:all": "npm install --workspaces",
+    "deploy:frontend": "cd frontend && vercel --prod",
+    "deploy:backend": "cd backend && vercel --prod",
+    "deploy": "npm run deploy:backend && npm run deploy:frontend",
+    "git:setup": "git add . && git commit -m \"Initial commit - Order Management System\" && git branch -M main"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  }
+}
