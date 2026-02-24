@@ -6,7 +6,10 @@ import orderRoutes from './routes/orders';
 const app = express();
 
 // Middleware
-app.use(cors());
+app.use(cors({
+  origin: ['https://frontend-2bv0cfjv3-ameys-projects-6447a876.vercel.app', 'http://localhost:3000'],
+  credentials: true
+}));
 app.use(express.json());
 
 // Routes

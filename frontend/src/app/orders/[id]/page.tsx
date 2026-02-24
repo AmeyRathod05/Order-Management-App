@@ -28,7 +28,7 @@ export default function OrderStatusPage() {
   const fetchOrderStatus = async () => {
     try {
       setLoading(true);
-      const response = await fetch(`http://localhost:3001/api/orders/${orderId}`);
+      const response = await fetch(`https://backend-5lzpjeyez-ameys-projects-6447a876.vercel.app/api/orders/${orderId}`);
       
       if (!response.ok) {
         throw new Error('Failed to fetch order status');
@@ -60,7 +60,7 @@ export default function OrderStatusPage() {
       
       // Call backend to update status
       try {
-        await fetch(`http://localhost:3001/api/orders/${order.id}/status`, {
+        await fetch(`https://backend-5lzpjeyez-ameys-projects-6447a876.vercel.app/api/orders/${order.id}/status`, {
           method: 'PUT',
           headers: {
             'Content-Type': 'application/json',

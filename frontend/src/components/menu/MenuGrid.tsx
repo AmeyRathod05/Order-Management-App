@@ -16,7 +16,7 @@ export function MenuGrid() {
   const fetchMenuItems = async () => {
     try {
       setLoading(true);
-      const response = await fetch('http://localhost:3001/api/menu');
+      const response = await fetch('https://backend-5lzpjeyez-ameys-projects-6447a876.vercel.app/api/menu');
       
       if (!response.ok) {
         throw new Error('Failed to fetch menu items');
