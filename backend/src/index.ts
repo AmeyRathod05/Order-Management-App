@@ -7,7 +7,7 @@ const app = express();
 
 // Middleware
 app.use(cors({
-  origin: ['https://frontend-2bv0cfjv3-ameys-projects-6447a876.vercel.app', 'http://localhost:3000'],
+  origin: ['https://frontend-9t85rnpc4-ameys-projects-6447a876.vercel.app', 'http://localhost:3000'],
   credentials: true
 }));
 app.use(express.json());
@@ -40,3 +40,12 @@ app.use('*', (req, res) => {
 
 // Export for Vercel
 export default app;
+
+// Development server
+if (process.env.NODE_ENV !== 'production') {
+  const PORT = process.env.PORT || 3001;
+  app.listen(PORT, () => {
+    console.log(`🚀 Server running on port ${PORT}`);
+    console.log(`📋 Menu API available at http://localhost:${PORT}/api/menu`);
+  });
+}

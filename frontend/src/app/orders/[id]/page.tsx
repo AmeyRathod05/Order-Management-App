@@ -5,6 +5,7 @@ import { useParams } from 'next/navigation';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/Card';
 import { Button } from '@/components/ui/Button';
 import { Order } from '@/types';
+import { API_ENDPOINTS } from '@/lib/api';
 
 export default function OrderStatusPage() {
   const params = useParams();
@@ -28,7 +29,7 @@ export default function OrderStatusPage() {
   const fetchOrderStatus = async () => {
     try {
       setLoading(true);
-      const response = await fetch(`https://backend-5lzpjeyez-ameys-projects-6447a876.vercel.app/api/orders/${orderId}`);
+      const response = await fetch(API_ENDPOINTS.ORDER_STATUS(orderId));
       
       if (!response.ok) {
         throw new Error('Failed to fetch order status');
@@ -60,7 +61,7 @@ export default function OrderStatusPage() {
       
       // Call backend to update status
       try {
-        await fetch(`https://backend-5lzpjeyez-ameys-projects-6447a876.vercel.app/api/orders/${order.id}/status`, {
+        await fetch(API_ENDPOINTS.UPDATE_ORDER_STATUS(order.id), {
           method: 'PUT',
           headers: {
             'Content-Type': 'application/json',

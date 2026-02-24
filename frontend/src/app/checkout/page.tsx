@@ -5,6 +5,7 @@ import { useCart } from '@/context/CartContext';
 import { Button } from '@/components/ui/Button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/Card';
 import { CustomerInfo } from '@/types';
+import { API_ENDPOINTS } from '@/lib/api';
 
 export default function CheckoutPage() {
   const { state, clearCart } = useCart();
@@ -55,7 +56,7 @@ export default function CheckoutPage() {
         totalAmount: state.total,
       };
 
-      const response = await fetch('https://backend-5lzpjeyez-ameys-projects-6447a876.vercel.app/api/orders', {
+      const response = await fetch(API_ENDPOINTS.ORDERS, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

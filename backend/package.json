@@ -2,7 +2,7 @@
   "name": "order-management-backend",
   "version": "1.0.0",
   "description": "Backend API for order management",
-  "main": "dist/index.js",
+  "main": "src/index.ts",
   "scripts": {
     "dev": "tsx watch src/index.ts",
     "build": "tsc",

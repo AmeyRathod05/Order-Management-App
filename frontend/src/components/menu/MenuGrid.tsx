@@ -1,8 +1,9 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useState, useEffect } from 'react';
 import { MenuItem } from '@/types';
 import { MenuItemCard } from './MenuItemCard';
+import { API_ENDPOINTS } from '@/lib/api';
 
 export function MenuGrid() {
   const [menuItems, setMenuItems] = useState<MenuItem[]>([]);
@@ -16,7 +17,7 @@ export function MenuGrid() {
   const fetchMenuItems = async () => {
     try {
       setLoading(true);
-      const response = await fetch('https://backend-5lzpjeyez-ameys-projects-6447a876.vercel.app/api/menu');
+      const response = await fetch(API_ENDPOINTS.MENU);
       
       if (!response.ok) {
         throw new Error('Failed to fetch menu items');
