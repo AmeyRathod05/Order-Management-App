@@ -6,7 +6,10 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "build:prod": "next build",
+    "start:prod": "next start",
+    "test:prod": "npm run build:prod && npm run start:prod"
   },
   "dependencies": {
     "@radix-ui/react-dialog": "^1.1.15",

@@ -1,6 +1,6 @@
 'use client';
 
-import React, { createContext, useContext, useReducer, ReactNode } from 'react';
+import React, { createContext, useContext, useReducer, ReactNode, useEffect } from 'react';
 import { CartItem, MenuItem } from '@/types';
 
 interface CartState {
@@ -12,7 +12,8 @@ type CartAction =
   | { type: 'ADD_TO_CART'; payload: MenuItem }
   | { type: 'REMOVE_FROM_CART'; payload: string }
   | { type: 'UPDATE_QUANTITY'; payload: { id: string; quantity: number } }
-  | { type: 'CLEAR_CART' };
+  | { type: 'CLEAR_CART' }
+  | { type: 'LOAD_CART'; payload: CartState };
 
 const initialState: CartState = {
   items: [],
@@ -78,6 +79,9 @@ function cartReducer(state: CartState, action: CartAction): CartState {
     case 'CLEAR_CART':
       return initialState;
     
+    case 'LOAD_CART':
+      return action.payload;
+    
     default:
       return state;
   }
@@ -85,6 +89,28 @@ function cartReducer(state: CartState, action: CartAction): CartState {
 
 function calculateTotal(items: CartItem[]): number {
   return items.reduce((total, item) => total + item.price * item.quantity, 0);
+}
+
+// Save cart to localStorage
+function saveCartToLocalStorage(cartState: CartState) {
+  if (typeof window !== 'undefined') {
+    localStorage.setItem('cart', JSON.stringify(cartState));
+  }
+}
+
+// Load cart from localStorage
+function loadCartFromLocalStorage(): CartState {
+  if (typeof window !== 'undefined') {
+    const savedCart = localStorage.getItem('cart');
+    if (savedCart) {
+      try {
+        return JSON.parse(savedCart);
+      } catch (error) {
+        console.error('Failed to load cart from localStorage:', error);
+      }
+    }
+  }
+  return initialState;
 }
 
 interface CartContextType {
@@ -99,6 +125,17 @@ const CartContext = createContext<CartContextType | undefined>(undefined);
 
 export function CartProvider({ children }: { children: ReactNode }) {
   const [state, dispatch] = useReducer(cartReducer, initialState);
+
+  // Load cart from localStorage on mount
+  useEffect(() => {
+    const savedCart = loadCartFromLocalStorage();
+    dispatch({ type: 'LOAD_CART', payload: savedCart });
+  }, []);
+
+  // Save cart to localStorage whenever it changes
+  useEffect(() => {
+    saveCartToLocalStorage(state);
+  }, [state]);
 
   const addToCart = (item: MenuItem) => {
     dispatch({ type: 'ADD_TO_CART', payload: item });

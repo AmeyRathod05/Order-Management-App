@@ -29,16 +29,20 @@ export default function OrderStatusPage() {
   const fetchOrderStatus = async () => {
     try {
       setLoading(true);
-      const response = await fetch(API_ENDPOINTS.ORDER_STATUS(orderId));
+      const apiUrl = API_ENDPOINTS.ORDER_STATUS(orderId);
+      console.log('Fetching order from:', apiUrl);
+      const response = await fetch(apiUrl);
       
       if (!response.ok) {
-        throw new Error('Failed to fetch order status');
+        throw new Error(`Failed to fetch order status: ${response.status} ${response.statusText}`);
       }
       
       const data = await response.json();
+      console.log('Order data received:', data);
       setOrder(data.data);
       setError(null);
     } catch (err) {
+      console.error('Error fetching order:', err);
       setError(err instanceof Error ? err.message : 'An error occurred');
     } finally {
       setLoading(false);

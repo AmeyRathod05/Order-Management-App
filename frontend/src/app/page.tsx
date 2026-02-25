@@ -2,6 +2,7 @@
 
 import { MenuGrid } from '@/components/menu/MenuGrid';
 import { CartSidebar } from '@/components/cart/CartSidebar';
+import { EnvironmentIndicator } from '@/components/debug/EnvironmentIndicator';
 
 export default function Home() {
   return (
@@ -33,6 +34,7 @@ export default function Home() {
       </main>
 
       <CartSidebar />
+      <EnvironmentIndicator />
     </div>
   );
 }
